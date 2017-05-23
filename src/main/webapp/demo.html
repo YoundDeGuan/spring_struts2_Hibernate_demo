@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="resource/extjs/theme-crisp-all.css" />
+    <link rel="stylesheet" type="text/css" href="resource/extjs/theme-crisp-all-debug.css" />
+    <script type="text/javascript" src="resource/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="resource/extjs/ext-all-debug.js"></script>
+    <script type="text/javascript" src="resource/extjs/ext-bootstrap.js"></script>
+    <script type="text/javascript" src="resource/extjs/locale-zh_CN.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            Ext.MessageBox.alert("title", "Hello World");
+            //创建一个窗体
+            var win = new Ext.Window({
+                width: 300,
+                height:300,
+                items: [],
+                modal: true,
+                buttonAlign: 'center',
+                buttons: [{
+                    text: '测试', id: 'btnTest', handler: function () {
+                        Ext.Msg.show({
+                            title: '询问',
+                            msg: '您喜欢 ExtJs 吗？',
+                            fn: processResult,
+                            icon: Ext.Msg.QUESTION,
+                            buttons: Ext.Msg.YESNO
+                        });
+                    }
+                }
+                ]
+            });
+           // win.show();
+            //询问对话框处理Handler
+            function processResult(btn) {
+                Ext.Msg.alert('结果', btn);
+            }
+            var tab = Ext.create('Ext.tab.Panel', {
+                activeTab : 0,
+                enableTabScroll : true,
+                animScroll : true,
+                border : true,
+                autoScroll : true,
+                region : 'center',
+                split : true,
+                items : [{
+                    iconCls : 'icon-activity',
+                    title : '平台首页',
+                    xtype:'portalpanel',
+                    layout:'column',
+                    items : [{
+                        xtype : 'portalcolumn',
+                        columnWidth : 0.7,
+                        items:[{ title: '新闻动态',height : 150,iconCls : 'icon-news' },
+                            {title: '最新通知',height : 150, iconCls : 'icon-notice' },
+                            {title: '业绩报表',height : 150, iconCls : 'icon-chart'}]
+                    },{
+                        xtype : 'portalcolumn',
+                        columnWidth : 0.3,
+                        items:[{ title: '功能链接', height : 150, iconCls : 'icon-link'},
+                            {title: '待办事项',height : 150,iconCls : 'icon-note' },
+                            {title: '邮件列表', height : 150,iconCls : 'icon-email-list'}]
+                    }]
+                }],
+                plugins: [Ext.create('Ext.ux.TabReorderer'),
+                    Ext.create('Ext.ux.TabCloseMenu',{
+                        closeTabText: '关闭面板',
+                        closeOthersTabsText: '关闭其他',
+                        closeAllTabsText: '关闭所有'
+                    })]
+            });
+            tab.show();
+        });
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
